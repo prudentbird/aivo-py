@@ -42,7 +42,7 @@ CHANNELS = 1
 RECORDING = False
 audio_buffer = []
 recording_start_time = None
-current_transcript = ""  # Keep track of accumulated transcript
+current_transcript = ""
 MIN_RECORD_TIME = 1
 
 # ✅ Real-time processing settings
@@ -79,8 +79,8 @@ def callback(indata, frames, time, status):
 # ✅ Initialize main application window
 root = tk.Tk()
 root.title("Audio Transcriber")
-root.geometry("600x400")  # Larger window
-root.configure(bg="#f0f0f0")  # Light gray background
+root.geometry("600x400")
+root.configure(bg="#f0f0f0")
 
 # Create a main frame with padding
 main_frame = ttk.Frame(root, padding="20")
@@ -100,17 +100,14 @@ status_frame.pack(fill=tk.X, pady=(0, 10))
 status_label = ttk.Label(status_frame, text="Ready to Record", style="Status.TLabel")
 status_label.pack(side=tk.LEFT)
 
-# Add recording duration label
 duration_label = ttk.Label(status_frame, text="00:00", style="Status.TLabel")
 duration_label.pack(side=tk.RIGHT)
 
-# Styled record button
 record_button = ttk.Button(
     main_frame, text="🎤 Start Recording", style="Custom.TButton"
 )
 record_button.pack(pady=10)
 
-# Improved transcript display
 transcript_frame = ttk.LabelFrame(main_frame, text="Transcript", padding=10)
 transcript_frame.pack(fill=tk.BOTH, expand=True, pady=(10, 0))
 
@@ -126,7 +123,6 @@ transcript_display = tk.Text(
 )
 transcript_display.pack(fill=tk.BOTH, expand=True)
 
-# Add scrollbar to transcript
 scrollbar = ttk.Scrollbar(
     transcript_frame, orient=tk.VERTICAL, command=transcript_display.yview
 )
@@ -134,7 +130,6 @@ scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 transcript_display.configure(yscrollcommand=scrollbar.set)
 
 
-# Add recording timer
 def update_duration():
     """Update the recording duration display"""
     if RECORDING:
